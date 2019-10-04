@@ -18,6 +18,12 @@ JbIfNode >> condition: anObject [
 	condition := anObject
 ]
 
+{ #category : #'as yet unclassified' }
+JbIfNode >> evaluateIn: anEnvironment [
+
+"first evaluate condition if it returns true execute these statements - list of statement objects - loop over statemetns if condition was true"
+]
+
 { #category : #accessing }
 JbIfNode >> trueStatements [
 	^ trueStatements

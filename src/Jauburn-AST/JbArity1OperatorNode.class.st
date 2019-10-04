@@ -1,3 +1,6 @@
+"
+A Node for Arity1 operations.
+"
 Class {
 	#name : #JbArity1OperatorNode,
 	#superclass : #Object,
@@ -7,6 +10,16 @@ Class {
 	],
 	#category : #'Jauburn-AST-Core'
 }
+
+{ #category : #accessing }
+JbArity1OperatorNode >> evaluateIn: environment [
+
+	| evaldOp unaryOp |
+	evaldOp := self operand evaluateIn: environment.
+	unaryOp := self operator unaryExpression.
+	self operator = $-
+		ifTrue: [ ^(operator unaryExpression evaldOp) ].
+]
 
 { #category : #accessing }
 JbArity1OperatorNode >> operand [

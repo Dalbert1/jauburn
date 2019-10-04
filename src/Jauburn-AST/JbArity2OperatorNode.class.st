@@ -1,3 +1,6 @@
+"
+A Node for evaluation of Arity2 arithmetic operations.
+"
 Class {
 	#name : #JbArity2OperatorNode,
 	#superclass : #Object,

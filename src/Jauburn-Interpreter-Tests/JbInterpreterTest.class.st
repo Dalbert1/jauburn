@@ -1,3 +1,6 @@
+"
+A test class for the JbInterpreter.
+"
 Class {
 	#name : #JbInterpreterTest,
 	#superclass : #TestCase,
@@ -31,7 +34,19 @@ JbInterpreterTest >> testDeclarationBindsVariableToExpressionValue [
 	self assert: (interpreter environment at: 'x') equals: 19.
 	
 	self interpret: 'var x = 6;var y = 2*x;'.
-	self assert: (interpreter environment at: 'y') equals: 12
+	self assert: (interpreter environment at: 'y') equals: 12.
+	
+	self interpret: 'var x = 2;var y = 2/x;'.
+	self assert: (interpreter environment at: 'y') equals: 1.
+	
+	self interpret: 'var x = 2;var y = 2-x;'.
+	self assert: (interpreter environment at: 'y') equals: 0.
+	
+	self interpret: 'var x = 5;var y = 2<x;'.
+	self assert: (interpreter environment at: 'y') equals: true.
+	
+	self interpret: 'var x = 5;var y = 2<x;'.
+	self assert: (interpreter environment at: 'y') equals: false.
 ]
 
 { #category : #running }
