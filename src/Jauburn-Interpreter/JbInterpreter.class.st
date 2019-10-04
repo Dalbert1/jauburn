@@ -9,7 +9,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'environment',
-		'function'
+		'primitives'
 	],
 	#category : #'Jauburn-Interpreter-Core'
 }
@@ -20,18 +20,30 @@ JbInterpreter >> environment [
 	^environment
 ]
 
+{ #category : #evaluating }
+JbInterpreter >> evalFunction: func in: anEnvironment [
+	^ PFunction new
+		parameters: func second;
+		body: func third;
+		environment: anEnvironment
+]
+
 { #category : #initialization }
 JbInterpreter >> initialize [ 
 
 	super initialize.
 	environment := JbEnvironment new.
-	function := JbFunction new.
 ]
 
 { #category : #api }
 JbInterpreter >> interpret: ast [
 
 	^ast executeIn: environment 
+]
+
+{ #category : #printing }
+JbInterpreter >> printBinding [
+^#print --> [:value | Transcript show: value printString] .
 ]
 
 { #category : #api }

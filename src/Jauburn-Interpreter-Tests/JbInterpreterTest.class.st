@@ -38,7 +38,6 @@ JbInterpreterTest >> testDeclarationBindsVariableToExpressionValue [
 	self interpret: 'var x = 28;var y = -x;'.
 	self assert: (interpreter environment at: 'y') equals: -28.
 	
-	
 	self interpret: 'var x = 3 + 2 * 8;'.
 	self assert: (interpreter environment at: 'x') equals: 19.
 	
