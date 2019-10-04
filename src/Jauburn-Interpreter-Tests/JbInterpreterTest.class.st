@@ -49,13 +49,26 @@ JbInterpreterTest >> testDeclarationBindsVariableToExpressionValue [
 	self assert: (interpreter environment at: 'y') equals: true.
 	
 	
-	
 	self interpret: 'var x = 5; var y = 1 > x;'.
 	self assert: (interpreter environment at: 'y') equals: false.
 	
-
 	
 	self interpret: 'var x = 5; var y = 15 < x;'.
+	self assert: (interpreter environment at: 'y') equals: false.
+	
+
+	self interpret: 'var x = 5; var y = 15 == x;'.
+	self assert: (interpreter environment at: 'y') equals: false.
+	
+	self interpret: 'var x = 5; var y = 5 == x;'.
+	self assert: (interpreter environment at: 'y') equals: true.
+	
+
+	self interpret: 'var x = 15; var y = 5 != x;'.
+	self assert: (interpreter environment at: 'y') equals: true.
+	
+
+	self interpret: 'var x = 5; var y = 5 != x;'.
 	self assert: (interpreter environment at: 'y') equals: false.
 ]
 
