@@ -6,7 +6,8 @@ Class {
 	#superclass : #TestCase,
 	#instVars : [
 		'interpreter',
-		'parser'
+		'parser',
+		'function'
 	],
 	#category : #'Jauburn-Interpreter-Tests'
 }
@@ -24,12 +25,20 @@ JbInterpreterTest >> interpret: aString [
 JbInterpreterTest >> setUp [ 
 
 	parser := JbParser new.
-	interpreter := JbInterpreter new
+	interpreter := JbInterpreter new.
+	function := JbFunction new.
 ]
 
 { #category : #running }
 JbInterpreterTest >> testDeclarationBindsVariableToExpressionValue [
-
+	
+	self interpret: 'var x = -86;var y = -x;'.
+	self assert: (interpreter environment at: 'y') equals: 86.
+	
+	self interpret: 'var x = 28;var y = -x;'.
+	self assert: (interpreter environment at: 'y') equals: -28.
+	
+	
 	self interpret: 'var x = 3 + 2 * 8;'.
 	self assert: (interpreter environment at: 'x') equals: 19.
 	
@@ -48,28 +57,24 @@ JbInterpreterTest >> testDeclarationBindsVariableToExpressionValue [
 	self interpret: 'var x = 5; var y = 5 >= x;'.
 	self assert: (interpreter environment at: 'y') equals: true.
 	
-	
 	self interpret: 'var x = 5; var y = 1 > x;'.
 	self assert: (interpreter environment at: 'y') equals: false.
-	
 	
 	self interpret: 'var x = 5; var y = 15 < x;'.
 	self assert: (interpreter environment at: 'y') equals: false.
 	
-
 	self interpret: 'var x = 5; var y = 15 == x;'.
 	self assert: (interpreter environment at: 'y') equals: false.
 	
 	self interpret: 'var x = 5; var y = 5 == x;'.
 	self assert: (interpreter environment at: 'y') equals: true.
 	
-
 	self interpret: 'var x = 15; var y = 5 != x;'.
 	self assert: (interpreter environment at: 'y') equals: true.
-	
 
 	self interpret: 'var x = 5; var y = 5 != x;'.
 	self assert: (interpreter environment at: 'y') equals: false.
+
 ]
 
 { #category : #running }

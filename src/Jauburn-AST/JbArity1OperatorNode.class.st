@@ -14,11 +14,10 @@ Class {
 { #category : #accessing }
 JbArity1OperatorNode >> evaluateIn: environment [
 
-	| evaldOp unaryOp |
+	| evaldOp |
 	evaldOp := self operand evaluateIn: environment.
-	unaryOp := self operator unaryExpression.
-	self operator = $-
-		ifTrue: [ ^(operator unaryExpression evaldOp) ].
+	
+	^ (evaldOp negated ).
 ]
 
 { #category : #accessing }

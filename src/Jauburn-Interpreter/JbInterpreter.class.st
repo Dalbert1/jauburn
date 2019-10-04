@@ -8,7 +8,8 @@ Class {
 	#name : #JbInterpreter,
 	#superclass : #Object,
 	#instVars : [
-		'environment'
+		'environment',
+		'function'
 	],
 	#category : #'Jauburn-Interpreter-Core'
 }
@@ -23,7 +24,8 @@ JbInterpreter >> environment [
 JbInterpreter >> initialize [ 
 
 	super initialize.
-	environment := JbEnvironment new
+	environment := JbEnvironment new.
+	function := JbFunction new.
 ]
 
 { #category : #api }
