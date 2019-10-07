@@ -16,3 +16,13 @@ ManifestJauburnInterpreter class >> ruleRBCodeCruftLeftInMethodsRuleV1FalsePosit
 ManifestJauburnInterpreter class >> ruleRBCollectionProtocolRuleV1FalsePositive [
 	^ #(#(#(#RGMethodDefinition #(#JbInterpreter #initializeEnvBindings #false)) #'2019-10-04T19:26:14.686384-05:00') )
 ]
+
+{ #category : #'code-critics' }
+ManifestJauburnInterpreter class >> ruleRBRefersToClassRuleV1FalsePositive [
+	^ #(#(#(#RGMethodDefinition #(#JbInterpreter #initialize #false)) #'2019-10-04T20:11:15.266091-05:00') )
+]
+
+{ #category : #'code-critics' }
+ManifestJauburnInterpreter class >> ruleRBSendsUnknownMessageToGlobalRuleV1FalsePositive [
+	^ #(#(#(#RGClassDefinition #(#JbInterpreter)) #'2019-10-04T20:11:13.131052-05:00') )
+]

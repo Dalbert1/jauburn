@@ -6,8 +6,7 @@ Class {
 	#superclass : #TestCase,
 	#instVars : [
 		'interpreter',
-		'parser',
-		'function'
+		'parser'
 	],
 	#category : #'Jauburn-Interpreter-Tests'
 }
@@ -26,7 +25,36 @@ JbInterpreterTest >> setUp [
 
 	parser := JbParser new.
 	interpreter := JbInterpreter new.
-	function := JbFunction new.
+
+]
+
+{ #category : #tests }
+JbInterpreterTest >> testAbsoluteValue [
+
+      self interpret: 'var y = abs(-5);'.
+		self assert: (interpreter environment at: 'y') equals: 5.
+		
+	   self interpret: 'var y = abs(-10000);'.
+		self assert: (interpreter environment at: 'y') equals: 10000.
+]
+
+{ #category : #tests }
+JbInterpreterTest >> testBooleanExpression [
+
+	self interpret: 'var x = true;var z = false;'.
+	self assert: (interpreter environment at: 'z') equals: false.
+	
+	self interpret: 'var x = false;var z = true;'.
+	self assert: (interpreter environment at: 'z') equals: true.
+	
+
+]
+
+{ #category : #tests }
+JbInterpreterTest >> testConcat [
+
+	self interpret: 'var y = concat("abc", "123");'.
+	self assert: (interpreter environment at: 'y') equals: 'abc 123'.
 ]
 
 { #category : #running }
@@ -81,4 +109,114 @@ JbInterpreterTest >> testDeclarationCreatesVariable [
 
 	self interpret: 'var x = 99;'.
 	self assert: (interpreter environment includesKey: 'x')
+]
+
+{ #category : #tests }
+JbInterpreterTest >> testFunctionCall [
+
+	self interpret: 'var x = function(a, b, c) {return a * b * c;};y = x(1, 2, 3);'.
+	
+	self assert: (interpreter environment at: 'y') equals: 6.
+]
+
+{ #category : #tests }
+JbInterpreterTest >> testFunctionDefinition [
+
+	self interpret: 'var x = function(a, b, c) {};'.
+	
+	self assert: (interpreter environment at: 'x') parameters size equals: 3.
+	
+	self assert: (interpreter environment at: 'x') body size equals: 0.
+	
+	self assert: (interpreter environment at: 'x') environment equals: interpreter environment.
+]
+
+{ #category : #tests }
+JbInterpreterTest >> testIf [
+	
+	self interpret: 'var x = 5;if(2 < 5) {var x = 20;};'.
+	
+	self assert: (interpreter environment at: 'x') equals: 20.
+]
+
+{ #category : #tests }
+JbInterpreterTest >> testIfElse [
+	
+	self interpret: 'var x = 5;if(2 > 5) {var x = 20;} else {var x = 99;};'.
+	self assert: (interpreter environment at: 'x') equals: 99.
+	
+	self interpret: 'var x = 5;if(2 < 5) {var x = 20;} else {var x = 99;};'.
+	self assert: (interpreter environment at: 'x') equals: 20.
+]
+
+{ #category : #tests }
+JbInterpreterTest >> testInput [
+	| ui |
+	ui := MockJbUserInterface new.
+	interpreter uiManager: ui.
+	
+	self interpret: 'var y = input("Enter 42: ");'.
+	self assert: (interpreter environment at: 'y') equals: '42'.
+	
+
+]
+
+{ #category : #tests }
+JbInterpreterTest >> testLength [
+
+      self interpret: 'var y = length("hello");'.
+		self assert: (interpreter environment at: 'y') equals: 5.
+	
+]
+
+{ #category : #tests }
+JbInterpreterTest >> testModulo [
+
+      self interpret: 'var y = mod(4, 2);'.
+		self assert: (interpreter environment at: 'y') equals: 0.
+		
+      self interpret: 'var y = mod(4, 3);'.
+		self assert: (interpreter environment at: 'y') equals: 1.
+]
+
+{ #category : #tests }
+JbInterpreterTest >> testNotBinding [
+
+	self interpret: 'var x = true;var z = not(x);'.
+	self assert: (interpreter environment at: 'z') equals: false.
+]
+
+{ #category : #tests }
+JbInterpreterTest >> testPrint [
+	| mt |
+	
+	mt := JbTranscript new.
+	interpreter printer: mt.
+	
+	self interpret: 'var y = print("hello");'.
+	self assert: mt contents equals: 'hello'.
+]
+
+{ #category : #tests }
+JbInterpreterTest >> testPrintln [
+
+	| mt |
+	
+	mt := JbTranscript new.
+	interpreter printer: mt.
+	self interpret: 'var y = println("hello");'.
+	self assert: (interpreter environment at: 'y') contents equals: 'hello
+'.
+
+
+]
+
+{ #category : #tests }
+JbInterpreterTest >> testWhile [ 
+
+	self interpret: 'var x = 10;var y = 0;while(x > 0) {y = y + x; x = x - 1;}'.
+	self assert: (interpreter environment at: 'y') equals: 55.
+
+	self interpret: 'var y = 0;while(y < 10) {y = y + 1;}'.
+	self assert: (interpreter environment at: 'y') equals: 10.
 ]

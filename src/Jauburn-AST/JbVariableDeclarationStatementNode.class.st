@@ -1,3 +1,6 @@
+"
+The JbVariableDeclarationStatementNode class.
+"
 Class {
 	#name : #JbVariableDeclarationStatementNode,
 	#superclass : #Object,

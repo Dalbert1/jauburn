@@ -1,3 +1,6 @@
+"
+The JbFunctionNode class for our AST.
+"
 Class {
 	#name : #JbFunctionNode,
 	#superclass : #Object,
@@ -17,6 +20,16 @@ JbFunctionNode >> body [
 { #category : #accessing }
 JbFunctionNode >> body: anObject [
 	body := anObject
+]
+
+{ #category : #api }
+JbFunctionNode >> evaluateIn: environment [
+	
+	^ JbFunction new
+		parameters: self parameters;
+		body: self body;
+		environment: environment; 
+		yourself.
 ]
 
 { #category : #accessing }

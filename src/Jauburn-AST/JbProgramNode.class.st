@@ -1,3 +1,6 @@
+"
+The JbProgramNode class.
+"
 Class {
 	#name : #JbProgramNode,
 	#superclass : #Object,

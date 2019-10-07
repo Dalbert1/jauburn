@@ -1,3 +1,6 @@
+"
+The JbIfNode class for our AST.
+"
 Class {
 	#name : #JbIfNode,
 	#superclass : #Object,
@@ -19,9 +22,13 @@ JbIfNode >> condition: anObject [
 ]
 
 { #category : #'as yet unclassified' }
-JbIfNode >> evaluateIn: anEnvironment [
+JbIfNode >> executeIn: anEnvironment [
 
-"first evaluate condition if it returns true execute these statements - list of statement objects - loop over statemetns if condition was true"
+(condition evaluateIn: anEnvironment)
+	ifTrue: [ ^ trueStatements do: [ :each | each executeIn: anEnvironment ]]
+			"(each isKindOf: JbReturnStatementNode)
+ 			ifTrue: [ each executeIn: anEnvironment ]
+			ifFalse: [ each evaluateIn: anEnvironment]]]."
 ]
 
 { #category : #accessing }

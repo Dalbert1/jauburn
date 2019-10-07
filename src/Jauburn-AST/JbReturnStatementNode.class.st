@@ -1,3 +1,6 @@
+"
+The JbReturnStatementNode class for the AST.
+"
 Class {
 	#name : #JbReturnStatementNode,
 	#superclass : #Object,
@@ -6,6 +9,17 @@ Class {
 	],
 	#category : #'Jauburn-AST-Core'
 }
+
+{ #category : #api }
+JbReturnStatementNode >> executeIn: environment [
+
+| newVar |
+
+newVar := expression evaluateIn: environment.
+
+^newVar
+
+]
 
 { #category : #accessing }
 JbReturnStatementNode >> expression [

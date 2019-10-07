@@ -1,3 +1,6 @@
+"
+The JbConstantExpressionNode class.
+"
 Class {
 	#name : #JbConstantExpressionNode,
 	#superclass : #Object,

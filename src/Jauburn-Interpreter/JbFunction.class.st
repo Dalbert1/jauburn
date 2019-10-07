@@ -30,11 +30,19 @@ JbFunction >> body: anObject [
 JbFunction >> call: arguments in: callEnvironment [
 	"You need to implement this method!  arguments will contain the arguments to pass to this function and callEnvironment will contain the environment in place when this function was called."
 	
-	"Create a new environment inheriting from the function one, for the current application."
 	| applicationEnvironment |
-	applicationEnvironment := JbEnvironment newFromKeys: self parameters andValues: arguments.
-	applicationEnvironment outerEnvironment: callEnvironment.
-	^ applicationEnvironment
+	applicationEnvironment := JbEnvironment newFromKeys: (parameters collect: [ :each | each identifier]) andValues: arguments.
+	applicationEnvironment outerEnvironment: environment.
+	
+	
+	body do: [ :each | 
+	(each isKindOf: JbReturnStatementNode)
+		ifTrue: [  	^each executeIn: applicationEnvironment ]
+		ifFalse: [ 	each executeIn: applicationEnvironment ]
+].
+	"newVal := (body do: [ :each | each executeIn: applicationEnvironment ]).
+	
+^newVal"
 ]
 
 { #category : #accessing }

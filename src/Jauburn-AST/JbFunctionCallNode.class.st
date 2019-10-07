@@ -1,3 +1,6 @@
+"
+The JbFunctionCallNode class for our AST.
+"
 Class {
 	#name : #JbFunctionCallNode,
 	#superclass : #Object,
@@ -16,6 +19,18 @@ JbFunctionCallNode >> arguments [
 { #category : #accessing }
 JbFunctionCallNode >> arguments: anObject [
 	arguments := anObject
+]
+
+{ #category : #api }
+JbFunctionCallNode >> evaluateIn: environment [
+
+| evaldArgs |
+
+evaldArgs := arguments collect: [ :arg | arg evaluateIn: environment].
+
+^(environment at: identifier) call: evaldArgs in: environment.
+
+
 ]
 
 { #category : #accessing }

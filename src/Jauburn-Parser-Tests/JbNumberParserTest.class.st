@@ -1,3 +1,6 @@
+"
+A test class for testing numbers in the Jauburn Parser.
+"
 Class {
 	#name : #JbNumberParserTest,
 	#superclass : #PPCompositeParserTest,

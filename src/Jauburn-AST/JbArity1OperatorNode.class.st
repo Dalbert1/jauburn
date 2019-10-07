@@ -17,7 +17,7 @@ JbArity1OperatorNode >> evaluateIn: environment [
 	| evaldOp |
 	evaldOp := self operand evaluateIn: environment.
 	
-	^ (evaldOp negated ).
+	^ ( evaldOp negated ).
 ]
 
 { #category : #accessing }

@@ -1,3 +1,6 @@
+"
+The JbAssignmentStatementNode class for our AST.
+"
 Class {
 	#name : #JbAssignmentStatementNode,
 	#superclass : #Object,
@@ -7,6 +10,12 @@ Class {
 	],
 	#category : #'Jauburn-AST-Core'
 }
+
+{ #category : #accessing }
+JbAssignmentStatementNode >> executeIn: environment [
+
+	environment at: self identifier put: (self expression evaluateIn: environment)
+]
 
 { #category : #accessing }
 JbAssignmentStatementNode >> expression [
