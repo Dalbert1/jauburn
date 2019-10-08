@@ -204,14 +204,15 @@ JbParserTest >> testNumberExpression [
 { #category : #'tests-program' }
 JbParserTest >> testProgram [ 
 
-	| pgm |
+	| pgm pgm2 |
 	pgm := self parse: 'var x = function(x) { var z = 22; var y = z + 1; return x*z; };
 var lmnop123 = 9 * 2 + 44; var z = x(99);'.
 	self assert: pgm statements size equals: 3.
 	self assert: pgm statements first identifier equals: 'x'.
 	self assert: pgm statements second identifier equals: 'lmnop123'.
 	self assert: pgm statements third identifier equals: 'z'.
-	self assert: pgm statements third expression identifier equals: 'x'
+	self assert: pgm statements third expression identifier equals: 'x'.
+	
 ]
 
 { #category : #'tests-statements' }
@@ -280,9 +281,12 @@ JbParserTest >> testVariableDeclarationStatement [
 ]
 
 { #category : #tests }
-JbParserTest >> testWhileLoop [
+JbParserTest >> testWhileStatement [
 
 	| stmt |
-	stmt := self parse: 'while(x < 10) {x = x + 1;}' rule: #whileStatement.
-	self assert: stmt trueStatements isEmpty
+	stmt := self parse: 'while (x < 10) { }' rule: #whileStatement.
+	
+	self assert: (stmt isKindOf: JbWhileLoopNode) equals: true.
+	
+
 ]

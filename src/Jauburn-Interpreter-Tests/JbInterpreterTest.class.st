@@ -208,7 +208,29 @@ JbInterpreterTest >> testPrintln [
 	self assert: (interpreter environment at: 'y') contents equals: 'hello
 '.
 
+	self assert: mt contents equals: 'hello
+'.
 
+
+]
+
+{ #category : #tests }
+JbInterpreterTest >> testSquareRoot [
+
+	| ui mt sample |
+	
+	ui := MockJbUserInterface new.
+	interpreter uiManager: ui.
+	
+	mt := JbTranscript new.
+	interpreter printer: mt.
+	
+	
+	sample := JbSamplePrograms SquareRootProgram.
+	
+	self interpret: sample.
+	
+	self assert: mt contents equals: '23'.
 ]
 
 { #category : #tests }
@@ -219,4 +241,7 @@ JbInterpreterTest >> testWhile [
 
 	self interpret: 'var y = 0;while(y < 10) {y = y + 1;}'.
 	self assert: (interpreter environment at: 'y') equals: 10.
+	
+	self interpret: 'var y = 100;while(y >= 1) {y = y - 1;}'.
+	self assert: (interpreter environment at: 'y') equals: 0.
 ]

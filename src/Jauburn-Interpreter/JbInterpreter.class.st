@@ -48,7 +48,7 @@ JbInterpreter >> initialize [
 { #category : #primitives }
 JbInterpreter >> inputBinding [
 
-^#input -> [ :question | uiManager input: question].
+^#input -> [ :question | self uiManager input: question].
 ]
 
 { #category : #api }
