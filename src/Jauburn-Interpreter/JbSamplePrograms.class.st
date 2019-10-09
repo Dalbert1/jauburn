@@ -11,14 +11,18 @@ Class {
 JbSamplePrograms class >> GCD [
 
 ^
-'var test = println("hello world");
-var euclid = function(a, b) {return mod(a, b);};
-var input1 = 100;
-var input2 = 3;
-var q = euclid(input1, input2);
+'var euclid = function(a, b) {return mod(a, b);};
+var input1 = 32;
+var input2 = 12;
 
-if(q == 0) {var v = println("Done");} else { var notDone = println("Not Done");}
-var test2 = println(q);'
+while(input2 != 0) {
+var remainder = euclid(input1, input2);
+input1 = input2;
+input2 = remainder;}
+
+var test2 = println(input1);'
+
+"var q = euclid(inputinput1, input2);"
 ]
 
 { #category : #'as yet unclassified' }
