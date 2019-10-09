@@ -12,34 +12,41 @@ JbSamplePrograms class >> SquareRootProgram [
 		"self run: #SquareRootProgram"
 ^ 
 'var x0 = 1;
-var inputFunc = function(newInput) {return input("Enter a number for sq root calculation: ");};
-var printFunc = function(newPrintVal) {return print(newPrintVal);};
-
 var f = function(x) {return x * x - 2;};
 var fprime = function(x) {return 2 * x;};
-
-var epsilon = 1/1000000000000;
+var epsilon = 1/10000000000000;
 var tolerance = 1/1000000;
-var new = print(x0);
-var maxCount = 10000;
-while(maxCount > 0) {maxCount = maxCount - 1; 
-var y = f(x0);
+var maxCount = 100;
+var loopCondition = false;
+var checkCondition = false;
 
-var yPrime = fprime(x0);
+while(loopCondition == checkCondition) {
+
+var y = f(x0);
+yPrime = fprime(x0);
 var absoluteY = abs(yPrime);
-if(absoluteY < epsilon) { var printQuit = print("quit");};
+
+if(absoluteY < epsilon) {var v = print("Error"); loopCondition = true;}
 
 var x1 = y / yPrime + x0;
-var absolute = abs(x1 - x0);
+var absoluteNewtonCalc = abs(x1 - x0);
+var printApproxStep = println(absoluteNewtonCalc);
 
-if(absolute <= tolerance) { var printLast = print("done") ;};
+if(absoluteNewtonCalc <= tolerance) {var finalItr = println("Solution: "); loopCondition = true;}
 
-x0 = x1;};'
+x0 = x1;
+if(maxCount < 1) {var finalItr = println("Final Iteration"); loopCondition = true;}
+maxCount = maxCount - 1;}
+var final = println(x0);'
 
 "
-
+var epsilon = 1/10000000000000;
+var tolerance = 1/1000000;
+var testPrint = print(x0);x
+if(absoluteY < epsilon) {var printQuit = print(quit);};
+if(absolute <= tolerance) {var printLast = print(done);};
 var testInput = print(inputFunc(5));
-var testPrint = printFunc(x0);"
+"
 ]
 
 { #category : #'sample programs' }

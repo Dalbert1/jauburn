@@ -134,7 +134,7 @@ JbInterpreterTest >> testFunctionDefinition [
 { #category : #tests }
 JbInterpreterTest >> testIf [
 	
-	self interpret: 'var x = 5;if(2 < 5) {var x = 20;};'.
+	self interpret: 'var x = 5;if(2 < 5) {x = 20;};'.
 	
 	self assert: (interpreter environment at: 'x') equals: 20.
 ]
@@ -155,6 +155,7 @@ JbInterpreterTest >> testInput [
 	ui := MockJbUserInterface new.
 	interpreter uiManager: ui.
 	
+	ui contents: '42'.
 	self interpret: 'var y = input("Enter 42: ");'.
 	self assert: (interpreter environment at: 'y') equals: '42'.
 	
@@ -217,20 +218,13 @@ JbInterpreterTest >> testPrintln [
 { #category : #tests }
 JbInterpreterTest >> testSquareRoot [
 
-	| ui mt sample |
+	| sample |
 	
-	ui := MockJbUserInterface new.
-	interpreter uiManager: ui.
-	
-	mt := JbTranscript new.
-	interpreter printer: mt.
-	
-	
+	interpreter printer: Transcript.
+	interpreter uiManager: UIManager default.
 	sample := JbSamplePrograms SquareRootProgram.
 	
 	self interpret: sample.
-	
-	self assert: mt contents equals: '23'.
 ]
 
 { #category : #tests }
