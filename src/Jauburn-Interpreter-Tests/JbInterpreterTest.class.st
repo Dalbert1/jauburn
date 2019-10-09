@@ -132,6 +132,17 @@ JbInterpreterTest >> testFunctionDefinition [
 ]
 
 { #category : #tests }
+JbInterpreterTest >> testGCD [
+
+	| sample ui |
+	ui :=  MockJbUserInterface new.
+	interpreter printer: Transcript.
+	interpreter uiManager: ui.
+	sample := JbSamplePrograms GCD.
+	self interpret: sample.
+]
+
+{ #category : #tests }
 JbInterpreterTest >> testIf [
 	
 	self interpret: 'var x = 5;if(2 < 5) {x = 20;};'.
@@ -218,12 +229,11 @@ JbInterpreterTest >> testPrintln [
 { #category : #tests }
 JbInterpreterTest >> testSquareRoot [
 
-	| sample |
-	
+	| sample ui |
+	ui :=  MockJbUserInterface new.
 	interpreter printer: Transcript.
-	interpreter uiManager: UIManager default.
+	interpreter uiManager: ui.
 	sample := JbSamplePrograms SquareRootProgram.
-	
 	self interpret: sample.
 ]
 

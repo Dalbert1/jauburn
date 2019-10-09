@@ -8,14 +8,34 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+JbSamplePrograms class >> GCD [
+
+^
+'var test = println("hello world");
+var euclid = function(a, b) {return mod(a, b);};
+var input1 = 100;
+var input2 = 3;
+var q = euclid(input1, input2);
+
+var program = if(q == 0) {var done = println(q);} 
+else {var x = euclid(input2, mod(input1, input2));};
+
+var test2 = println(q);'
+]
+
+{ #category : #'as yet unclassified' }
 JbSamplePrograms class >> SquareRootProgram [
 		"self run: #SquareRootProgram"
 ^ 
 'var x0 = 1;
+var inputFunc = function(newInput) {return input("Enter a number for sq root calculation: ");};
+var printFunc = function(newPrintVal) {return print(newPrintVal);};
+var testInput = print(inputFunc(5));
+var testPrint = printFunc(x0);
 var f = function(x) {return x * x - 2;};
 var fprime = function(x) {return 2 * x;};
 var epsilon = 1/10000000000000;
-var tolerance = 1/1000000;
+var tolerance = 1/1000;
 var maxCount = 100;
 var loopCondition = false;
 var checkCondition = false;
