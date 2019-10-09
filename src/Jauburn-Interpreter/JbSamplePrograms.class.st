@@ -17,9 +17,7 @@ var input1 = 100;
 var input2 = 3;
 var q = euclid(input1, input2);
 
-var program = if(q == 0) {var done = println(q);} 
-else {var x = euclid(input2, mod(input1, input2));};
-
+if(q == 0) {var v = println("Done");} else { var notDone = println("Not Done");}
 var test2 = println(q);'
 ]
 
